@@ -7,6 +7,10 @@ This is an example implementation of a SatoshiPay [HTTP endpoint](http://docs.sa
 - Support for range requests (partial HTTP content), which is required to skip in video files
 - Automatic matching of request URLs to directories
 
+## Installation
+
+Simply place `index.php` in a web accessible directory on your HTTP server, configure it and add files as described below.
+
 ## Configuration
 
 ### Environment variables
@@ -43,3 +47,5 @@ Study the example in the `files` directory of this repository or follow these st
     `content_type` is optional and should be detected correctly if your webserver is configured properly. This needs to match the `data-sp-type` attibute of the [HTML tag](http://docs.satoshipay.io/api/#html-tags) that embeds your digital good into a page.
 
 Use URLs like `http://example.org/?file=example.html` when registering and accessing your digital goods. See `.htaccess` section for rewrite options.
+
+*Maintainer: Meinhard Benn, [SatoshiPay](https://satoshipay.io/)*

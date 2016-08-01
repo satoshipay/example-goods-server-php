@@ -1,5 +1,38 @@
 <?php
-$pathPrefix = '../files/';
+
+if (getEnvironment('DEBUG') == '1') {
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+    if (getEnvironment('ERROR_LOG') != '') {
+        ini_set('error_log', getEnvironment('ERROR_LOG'));
+    }
+}
+
+if (getEnvironment('PATH_PREFIX')) {
+    $pathPrefix = getEnvironment('PATH_PREFIX');
+} else {
+    $pathPrefix = '../files/';
+}
+
+function debug($message) {
+    if (getEnvironment('DEBUG') != '1') {
+        return;
+    }
+    error_log($message);
+}
+
+function getEnvironment($name) {
+    if (isset($_ENV[$name])) {
+        return $_ENV[$name];
+    }
+
+    // Support SetEnv in .htaccess with mod_rewrite instructions
+    if (isset($_ENV['REDIRECT_' . $name])) {
+        return $_ENV['REDIRECT_' . $name];
+    }
+
+    return '';
+}
 
 function notFound() {
     http_response_code(404);
@@ -103,8 +136,7 @@ function getRange($size) {
         return false;
     }
 
-    // DEBUG
-    error_log('range: ' . $rangeHeader);
+    debug('range: ' . $rangeHeader);
 
     $range = explode('-', $rangeHeader, 2);
 

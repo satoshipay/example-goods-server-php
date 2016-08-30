@@ -1,5 +1,7 @@
 <?php
 
+require_once('../lib/satoshipay/src/Receipt.php');
+
 if (getEnvironment('DEBUG') == '1') {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
@@ -192,8 +194,17 @@ if (!isset($_GET['paymentCert'])) {
     paymentRequired();
 }
 
-if (getSecret($_GET['file']) != $_GET['paymentCert']) {
-    paymentRequired();
+$secret = getSecret($_GET['file']);
+
+if ($_GET['paymentReceipt']) {
+    $receipt = new \SatoshiPay\Receipt($_GET['paymentReceipt'], $secret);
+    if (!$receipt->isValid()) {
+        paymentRequired();
+    }
+} else {
+    if ($_GET['paymentCert'] != $secret) {
+        paymentRequired();
+    }
 }
 
 sendFile($_GET['file']);

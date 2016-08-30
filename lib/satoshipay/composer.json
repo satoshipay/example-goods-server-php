@@ -1,0 +1,14 @@
+{
+    "name": "satoshipay/satoshipay",
+    "description": "Helps integrating SatoshiPay into your application",
+    "version": "0.5.0",
+    "require": {
+        "php": ">=5.3"
+    },
+    "authors": [
+        {
+            "name": "Meinhard Benn",
+            "email": "meinhard@satoshipay.io"
+        }
+    ]
+}

@@ -190,7 +190,7 @@ if (!$filePath) {
     notFound();
 }
 
-if (!isset($_GET['paymentCert'])) {
+if (!isset($_GET['paymentReceipt']) && !isset($_GET['paymentCert'])) {
     paymentRequired();
 }
 
